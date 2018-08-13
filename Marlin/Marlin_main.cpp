@@ -5606,7 +5606,7 @@ void home_all_axes() { gcode_G28(true); }
     if ((!end_stops && tower_angles) || (end_stops && !tower_angles)) { // XOR
       SERIAL_PROTOCOLPAIR("  Radius:", delta_radius);
     }
-    #if HAS_BED_PROBE
+    #if HAS_BED_PROBE && ENABLED(ULTIPANEL)
       if (!end_stops && !tower_angles) {
         SERIAL_PROTOCOL_SP(30);
         print_signed_float(PSTR("Offset"), zprobe_zoffset);
@@ -5670,7 +5670,7 @@ void home_all_axes() { gcode_G28(true); }
     #endif
   }
 
-  #if HAS_BED_PROBE
+  #if HAS_BED_PROBE && ENABLED(ULTIPANEL)
     static float probe_z_shift(const float center) {
       STOW_PROBE();
       endstops.enable_z_probe(false);
@@ -6054,7 +6054,7 @@ void home_all_axes() { gcode_G28(true); }
 
         switch (probe_points) {
           case -1:
-            #if HAS_BED_PROBE
+            #if HAS_BED_PROBE && ENABLED(ULTIPANEL)
               zprobe_zoffset += probe_z_shift(z_at_pt[CEN]);
             #endif
 
